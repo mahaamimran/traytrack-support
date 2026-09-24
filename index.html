@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Support and frequently asked questions for TrayTrack, the on-device aligner wear-time tracker.">
+<link rel="icon" href="favicon.png">
+<title>TrayTrack — Support</title>
+<style>
+  :root {
+    --paper: #f2ecdd;
+    --paper-deep: #e9e0c9;
+    --ink: #221f2b;
+    --ink-soft: #57506b;
+    --rule: rgba(34, 31, 43, 0.18);
+    --accent: #0f9e86;
+    --accent-2: #14c2a5;
+    --stamp: #b23a3a;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --mono: ui-monospace, "SF Mono", "Menlo", "Cascadia Mono", monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { background: var(--paper); }
+
+  body {
+    margin: 0;
+    font-family: var(--serif);
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 1px 1px, rgba(34,31,43,0.06) 1px, transparent 0) 0 0/22px 22px,
+      linear-gradient(var(--paper), var(--paper));
+    font-size: clamp(1rem, 0.94rem + 0.3vw, 1.08rem);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); }
+  a:hover { color: var(--accent-2); }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    position: relative;
+    padding: 64px 0 40px;
+    border-bottom: 3px double var(--ink);
+  }
+
+  .masthead-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .wordmark {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .app-icon {
+    flex: none;
+    border-radius: 22.37%;
+    box-shadow: 0 3px 10px rgba(34, 31, 43, 0.28);
+  }
+
+  .wordmark h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 1.5rem + 1.6vw, 2.6rem);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .kicker {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 6px;
+  }
+
+  .tagline {
+    font-style: italic;
+    color: var(--ink-soft);
+    margin: 10px 0 0;
+    max-width: 34ch;
+  }
+
+  /* Stamp badge */
+  .stamp {
+    flex: none;
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    border: 2px solid var(--stamp);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transform: rotate(9deg);
+    color: var(--stamp);
+    position: relative;
+    opacity: 0.88;
+    mix-blend-mode: multiply;
+  }
+  .stamp::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid var(--stamp);
+    border-radius: 50%;
+  }
+  .stamp span {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  /* ---------- Lede ---------- */
+  .lede {
+    padding: 48px 0 8px;
+  }
+  .lede p {
+    font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.6rem);
+    line-height: 1.5;
+    margin: 0;
+    max-width: 30ch;
+  }
+  .lede .accent { color: var(--accent); }
+
+  /* ---------- Dossier / FAQ ---------- */
+  .dossier { padding: 40px 0 8px; }
+
+  .dossier-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 10px;
+    margin-bottom: 8px;
+  }
+  .dossier-head h2 {
+    margin: 0;
+    font-size: 1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-family: var(--mono);
+    font-weight: 500;
+  }
+  .dossier-head span {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+  }
+
+  .entry {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 18px;
+    padding: 26px 0;
+    border-bottom: 1px dashed var(--rule);
+    opacity: 0;
+    transform: translateY(10px);
+    animation: rise 0.6s ease forwards;
+  }
+  .entry:last-child { border-bottom: none; }
+
+  .entry .no {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--stamp);
+    padding-top: 3px;
+  }
+
+  .entry h3 {
+    margin: 0 0 6px;
+    font-size: 1.12rem;
+    font-weight: 600;
+  }
+  .entry p {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 58ch;
+  }
+
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- Contact ---------- */
+  .contact {
+    margin: 56px 0 0;
+    padding: 36px 28px;
+    border: 1px solid var(--ink);
+    position: relative;
+    background: var(--paper-deep);
+  }
+  .contact::before,
+  .contact::after {
+    content: "";
+    position: absolute;
+    top: -1px; bottom: -1px;
+    width: 14px;
+    background:
+      radial-gradient(circle at 0 6px, transparent 6px, var(--paper) 6.5px) 0 0/100% 12px repeat-y;
+  }
+  .contact::before { left: -7px; }
+  .contact::after { right: -7px; transform: scaleX(-1); }
+
+  .contact h2 {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+    color: var(--ink-soft);
+  }
+  .contact p {
+    margin: 0 0 20px;
+    font-size: 1.15rem;
+  }
+
+  .ticket {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 26px;
+    background: var(--ink);
+    color: var(--paper) !important;
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    border-radius: 3px;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .ticket:hover {
+    background: var(--accent);
+    transform: translateY(-1px);
+  }
+  .ticket::before { content: "✉"; font-size: 0.95rem; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    margin-top: 64px;
+    padding: 28px 0 60px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media (max-width: 560px) {
+    .masthead-row { flex-direction: column; align-items: flex-start; }
+    .stamp { align-self: flex-end; margin-top: -12px; }
+    .entry { grid-template-columns: 30px 1fr; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="masthead">
+      <div class="masthead-row">
+        <div class="wordmark">
+          <img class="app-icon" src="icon.png" width="46" height="46" alt="TrayTrack app icon">
+          <div>
+            <p class="kicker">TrayTrack · Support</p>
+            <h1>Every tray, on time.</h1>
+          </div>
+        </div>
+        <div class="stamp" role="img" aria-label="On-device and private badge">
+          <span>On&#8209;Device<br>Private<br>No Account</span>
+        </div>
+      </div>
+      <p class="tagline">Documentation for the app that tracks your aligner wear time so you don't have to.</p>
+    </header>
+
+    <section class="lede">
+      <p>TrayTrack keeps you on <span class="accent">schedule</span> — wear time, tray switches, and appointments — entirely on your device.</p>
+    </section>
+
+    <section class="dossier">
+      <div class="dossier-head">
+        <h2>Frequently Asked</h2>
+        <span>5 entries</span>
+      </div>
+
+      <article class="entry" style="animation-delay: 0.05s">
+        <div class="no">N&deg;01</div>
+        <div>
+          <h3>Is my data private?</h3>
+          <p>Yes. TrayTrack runs entirely on your device — there's no account, no login, and nothing is ever sent to a server. Your treatment plan, wear-time history, notes, and smile photos stay on your iPhone.</p>
+        </div>
+      </article>
+
+      <article class="entry" style="animation-delay: 0.1s">
+        <div class="no">N&deg;02</div>
+        <div>
+          <h3>How do reminders work?</h3>
+          <p>TrayTrack schedules local notifications for switching to your next tray and for putting your aligners back in after a meal, at times you choose in Settings &rarr; Reminders.</p>
+        </div>
+      </article>
+
+      <article class="entry" style="animation-delay: 0.15s">
+        <div class="no">N&deg;03</div>
+        <div>
+          <h3>How do I edit my treatment plan?</h3>
+          <p>Settings &rarr; Treatment lets you update your brand, tray count, current tray, schedule, and daily wear goal at any time.</p>
+        </div>
+      </article>
+
+      <article class="entry" style="animation-delay: 0.2s">
+        <div class="no">N&deg;04</div>
+        <div>
+          <h3>How do I export a report for my orthodontist?</h3>
+          <p>Settings &rarr; Share compliance report generates a wear-time summary as PDF or text that you can send directly from your phone.</p>
+        </div>
+      </article>
+
+      <article class="entry" style="animation-delay: 0.25s">
+        <div class="no">N&deg;05</div>
+        <div>
+          <h3>Something isn't working.</h3>
+          <p>Email with your device model, iOS version, and what you were doing when it happened. Screenshots help a lot.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="contact">
+      <h2>Still need help</h2>
+      <p>I read every message myself &mdash; usually within a day or two.</p>
+      <a class="ticket" href="mailto:mahaamimran@gmail.com">mahaamimran@gmail.com</a>
+    </section>
+
+    <footer>
+      <span>TrayTrack &mdash; built by one person.</span>
+      <span><a href="privacy.html">Privacy Policy</a> &middot; No trackers. No accounts. No servers.</span>
+    </footer>
+
+  </div>
+</body>
+</html>
