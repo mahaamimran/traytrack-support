@@ -2,357 +2,345 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Support and frequently asked questions for TrayTrack, the on-device aligner wear-time tracker.">
-<link rel="icon" href="favicon.png">
-<title>TrayTrack — Support</title>
-<style>
-  :root {
-    --paper: #f2ecdd;
-    --paper-deep: #e9e0c9;
-    --ink: #221f2b;
-    --ink-soft: #57506b;
-    --rule: rgba(34, 31, 43, 0.18);
-    --accent: #0f9e86;
-    --accent-2: #14c2a5;
-    --stamp: #b23a3a;
-    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
-    --mono: ui-monospace, "SF Mono", "Menlo", "Cascadia Mono", monospace;
-  }
-
-  * { box-sizing: border-box; }
-
-  html { background: var(--paper); }
-
-  body {
-    margin: 0;
-    font-family: var(--serif);
-    color: var(--ink);
-    background:
-      radial-gradient(circle at 1px 1px, rgba(34,31,43,0.06) 1px, transparent 0) 0 0/22px 22px,
-      linear-gradient(var(--paper), var(--paper));
-    font-size: clamp(1rem, 0.94rem + 0.3vw, 1.08rem);
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  a { color: var(--accent); }
-  a:hover { color: var(--accent-2); }
-
-  .wrap {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* ---------- Masthead ---------- */
-  .masthead {
-    position: relative;
-    padding: 64px 0 40px;
-    border-bottom: 3px double var(--ink);
-  }
-
-  .masthead-row {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px;
-  }
-
-  .wordmark {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .app-icon {
-    flex: none;
-    border-radius: 22.37%;
-    box-shadow: 0 3px 10px rgba(34, 31, 43, 0.28);
-  }
-
-  .wordmark h1 {
-    margin: 0;
-    font-size: clamp(1.8rem, 1.5rem + 1.6vw, 2.6rem);
-    font-weight: 600;
-    letter-spacing: 0.01em;
-  }
-
-  .kicker {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin: 0 0 6px;
-  }
-
-  .tagline {
-    font-style: italic;
-    color: var(--ink-soft);
-    margin: 10px 0 0;
-    max-width: 34ch;
-  }
-
-  /* Stamp badge */
-  .stamp {
-    flex: none;
-    width: 108px;
-    height: 108px;
-    border-radius: 50%;
-    border: 2px solid var(--stamp);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    transform: rotate(9deg);
-    color: var(--stamp);
-    position: relative;
-    opacity: 0.88;
-    mix-blend-mode: multiply;
-  }
-  .stamp::before {
-    content: "";
-    position: absolute;
-    inset: 6px;
-    border: 1px solid var(--stamp);
-    border-radius: 50%;
-  }
-  .stamp span {
-    font-family: var(--mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.08em;
-    line-height: 1.35;
-    text-transform: uppercase;
-  }
-
-  /* ---------- Lede ---------- */
-  .lede {
-    padding: 48px 0 8px;
-  }
-  .lede p {
-    font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.6rem);
-    line-height: 1.5;
-    margin: 0;
-    max-width: 30ch;
-  }
-  .lede .accent { color: var(--accent); }
-
-  /* ---------- Dossier / FAQ ---------- */
-  .dossier { padding: 40px 0 8px; }
-
-  .dossier-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--ink);
-    padding-bottom: 10px;
-    margin-bottom: 8px;
-  }
-  .dossier-head h2 {
-    margin: 0;
-    font-size: 1rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    font-family: var(--mono);
-    font-weight: 500;
-  }
-  .dossier-head span {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--ink-soft);
-  }
-
-  .entry {
-    display: grid;
-    grid-template-columns: 44px 1fr;
-    gap: 18px;
-    padding: 26px 0;
-    border-bottom: 1px dashed var(--rule);
-    opacity: 0;
-    transform: translateY(10px);
-    animation: rise 0.6s ease forwards;
-  }
-  .entry:last-child { border-bottom: none; }
-
-  .entry .no {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    color: var(--stamp);
-    padding-top: 3px;
-  }
-
-  .entry h3 {
-    margin: 0 0 6px;
-    font-size: 1.12rem;
-    font-weight: 600;
-  }
-  .entry p {
-    margin: 0;
-    color: var(--ink-soft);
-    max-width: 58ch;
-  }
-
-  @keyframes rise {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ---------- Contact ---------- */
-  .contact {
-    margin: 56px 0 0;
-    padding: 36px 28px;
-    border: 1px solid var(--ink);
-    position: relative;
-    background: var(--paper-deep);
-  }
-  .contact::before,
-  .contact::after {
-    content: "";
-    position: absolute;
-    top: -1px; bottom: -1px;
-    width: 14px;
-    background:
-      radial-gradient(circle at 0 6px, transparent 6px, var(--paper) 6.5px) 0 0/100% 12px repeat-y;
-  }
-  .contact::before { left: -7px; }
-  .contact::after { right: -7px; transform: scaleX(-1); }
-
-  .contact h2 {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    margin: 0 0 10px;
-    color: var(--ink-soft);
-  }
-  .contact p {
-    margin: 0 0 20px;
-    font-size: 1.15rem;
-  }
-
-  .ticket {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 13px 26px;
-    background: var(--ink);
-    color: var(--paper) !important;
-    text-decoration: none;
-    font-family: var(--mono);
-    font-size: 0.85rem;
-    letter-spacing: 0.04em;
-    border-radius: 3px;
-    transition: transform 0.15s ease, background 0.15s ease;
-  }
-  .ticket:hover {
-    background: var(--accent);
-    transform: translateY(-1px);
-  }
-  .ticket::before { content: "✉"; font-size: 0.95rem; }
-
-  /* ---------- Footer ---------- */
-  footer {
-    margin-top: 64px;
-    padding: 28px 0 60px;
-    border-top: 1px solid var(--rule);
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.04em;
-    color: var(--ink-soft);
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  @media (max-width: 560px) {
-    .masthead-row { flex-direction: column; align-items: flex-start; }
-    .stamp { align-self: flex-end; margin-top: -12px; }
-    .entry { grid-template-columns: 30px 1fr; gap: 12px; }
-  }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TrayTrack Support</title>
+<meta name="description" content="Help with TrayTrack, the wear-time tracker for clear aligners and retainers: logging, tray switches, reminders, widgets, Live Activity, Siri, photos, iCloud Sync, Premium and your data.">
+<meta name="theme-color" content="#EEF4F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
   <div class="wrap">
-
-    <header class="masthead">
-      <div class="masthead-row">
-        <div class="wordmark">
-          <img class="app-icon" src="icon.png" width="46" height="46" alt="TrayTrack app icon">
-          <div>
-            <p class="kicker">TrayTrack · Support</p>
-            <h1>Every tray, on time.</h1>
-          </div>
-        </div>
-        <div class="stamp" role="img" aria-label="On-device and private badge">
-          <span>On&#8209;Device<br>Private<br>No Account</span>
-        </div>
-      </div>
-      <p class="tagline">Documentation for the app that tracks your aligner wear time so you don't have to.</p>
-    </header>
-
-    <section class="lede">
-      <p>TrayTrack keeps you on <span class="accent">schedule</span> — wear time, tray switches, and appointments — entirely on your device.</p>
-    </section>
-
-    <section class="dossier">
-      <div class="dossier-head">
-        <h2>Frequently Asked</h2>
-        <span>5 entries</span>
-      </div>
-
-      <article class="entry" style="animation-delay: 0.05s">
-        <div class="no">N&deg;01</div>
-        <div>
-          <h3>Is my data private?</h3>
-          <p>Yes. TrayTrack runs entirely on your device — there's no account, no login, and nothing is ever sent to a server. Your treatment plan, wear-time history, notes, and smile photos stay on your iPhone.</p>
-        </div>
-      </article>
-
-      <article class="entry" style="animation-delay: 0.1s">
-        <div class="no">N&deg;02</div>
-        <div>
-          <h3>How do reminders work?</h3>
-          <p>TrayTrack schedules local notifications for switching to your next tray and for putting your aligners back in after a meal, at times you choose in Settings &rarr; Reminders.</p>
-        </div>
-      </article>
-
-      <article class="entry" style="animation-delay: 0.15s">
-        <div class="no">N&deg;03</div>
-        <div>
-          <h3>How do I edit my treatment plan?</h3>
-          <p>Settings &rarr; Treatment lets you update your brand, tray count, current tray, schedule, and daily wear goal at any time.</p>
-        </div>
-      </article>
-
-      <article class="entry" style="animation-delay: 0.2s">
-        <div class="no">N&deg;04</div>
-        <div>
-          <h3>How do I export a report for my orthodontist?</h3>
-          <p>Settings &rarr; Share compliance report generates a wear-time summary as PDF or text that you can send directly from your phone.</p>
-        </div>
-      </article>
-
-      <article class="entry" style="animation-delay: 0.25s">
-        <div class="no">N&deg;05</div>
-        <div>
-          <h3>Something isn't working.</h3>
-          <p>Email with your device model, iOS version, and what you were doing when it happened. Screenshots help a lot.</p>
-        </div>
-      </article>
-    </section>
-
-    <section class="contact">
-      <h2>Still need help</h2>
-      <p>I read every message myself &mdash; usually within a day or two.</p>
-      <a class="ticket" href="mailto:mahaamimran@gmail.com">mahaamimran@gmail.com</a>
-    </section>
-
-    <footer>
-      <span>TrayTrack &mdash; built by one person.</span>
-      <span><a href="privacy.html">Privacy Policy</a> &middot; No trackers. No accounts. No servers.</span>
-    </footer>
-
+    <a class="brand" href="index.html" aria-label="TrayTrack Support home">
+      <svg viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0B5F52"/><g transform="translate(512 512) scale(0.92) translate(-512 -501)"><path d="M145 307 C145 722 879 722 879 307 A94 94 0 0 0 691 307 C691 472 333 472 333 307 A94 94 0 0 0 145 307 Z" fill="#fff" fill-opacity="0.4"/><path transform="translate(0 171)" d="M145 307 C145 722 879 722 879 307 A94 94 0 0 0 691 307 C691 472 333 472 333 307 A94 94 0 0 0 145 307 Z" fill="#fff"/></g></svg>
+      <span>TrayTrack</span>
+    </a>
+    <nav aria-label="Site">
+      <a href="index.html" aria-current="page">Support</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
   </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <section class="hero" aria-labelledby="title">
+    <svg class="hero-texture" viewBox="145 213 734 576" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4"><path d="M145 307 C145 722 879 722 879 307 A94 94 0 0 0 691 307 C691 472 333 472 333 307 A94 94 0 0 0 145 307 Z"/><path transform="translate(0 171)" d="M145 307 C145 722 879 722 879 307 A94 94 0 0 0 691 307 C691 472 333 472 333 307 A94 94 0 0 0 145 307 Z"/></g></svg>
+    <p class="kicker">
+      <svg class="mark" viewBox="145 213 734 576" role="img" aria-label="TrayTrack"><path class="upper" d="M145 307 C145 722 879 722 879 307 A94 94 0 0 0 691 307 C691 472 333 472 333 307 A94 94 0 0 0 145 307 Z" fill="currentColor" fill-opacity="0.4"/><g transform="translate(0 171)"><path class="lower" d="M145 307 C145 722 879 722 879 307 A94 94 0 0 0 691 307 C691 472 333 472 333 307 A94 94 0 0 0 145 307 Z" fill="currentColor"/></g></svg>
+      <span class="rise">TrayTrack Support</span>
+    </p>
+    <h1 id="title" class="rise" style="--i:1">How can we help?<span>Every tray, on time.</span></h1>
+    <p class="lede rise" style="--i:2">TrayTrack is an iPhone app for clear-aligner treatment. It keeps the clock on your wear time, knows your tray schedule, reminds you gently, and keeps a dated photo record of your smile. Answers to common questions are below; if yours isn't, email me.</p>
+    <ul class="chips rise" style="--i:3" aria-label="Quick links">
+      <li><a href="#contact">Email support</a></li>
+      <li><a href="#reminders">Reminders</a></li>
+      <li><a href="#widgets">Widgets &amp; Siri</a></li>
+      <li><a href="#premium">Premium &amp; refunds</a></li>
+    </ul>
+  </section>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Topics">
+      <p>Topics</p>
+      <ol>
+        <li><a href="#logging">Logging wear</a></li>
+        <li><a href="#trays">Trays &amp; calendar</a></li>
+        <li><a href="#reminders">Reminders</a></li>
+        <li><a href="#widgets">Widgets, Live Activity &amp; Siri</a></li>
+        <li><a href="#photos">Photos</a></li>
+        <li><a href="#premium">Premium &amp; iCloud Sync</a></li>
+        <li><a href="#after">After treatment</a></li>
+        <li><a href="#data">Your data</a></li>
+        <li><a href="#accessibility">Accessibility</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ol>
+    </nav>
+
+    <div>
+      <!-- 01 Logging -->
+      <section class="topic reveal" id="logging" aria-labelledby="logging-title">
+        <div class="topic-head"><span class="num">01</span><h2 id="logging-title">Logging wear</h2></div>
+        <div class="card faq">
+          <details>
+            <summary>Do I need an account?</summary>
+            <div class="answer"><p>No. There's no sign-up and no login. Open TrayTrack, set up your plan (number of trays, days per tray and your daily goal), and start tracking.</p></div>
+          </details>
+          <details>
+            <summary>How do I log my aligners out and back in?</summary>
+            <div class="answer">
+              <p>On <strong>Today</strong>, tap the dial or <strong>Take aligners out</strong> when they come out. An out-timer starts and the ring shows how much of today's out-time allowance is left. When they go back in, tap the dial again or <strong>Put aligners back in</strong>.</p>
+              <p>You can also log from a widget, the Live Activity on your Lock Screen, Control Center or Siri (see <a href="#widgets">Widgets, Live Activity &amp; Siri</a>).</p>
+            </div>
+          </details>
+          <details>
+            <summary>I tapped by mistake. Can I undo it?</summary>
+            <div class="answer"><p>Yes. After each tap an <strong>Undo</strong> bar stays on screen for ten seconds. If it's gone, find the session in the list under the dial on Today and delete it.</p></div>
+          </details>
+          <details>
+            <summary>What do the dial's colours mean?</summary>
+            <div class="answer"><p>The ring is today's out-time allowance (24 hours minus your goal). It drains as you use it, and turns amber when it's running low and red if you go over. The numbers are always the real ones; nothing is rounded up.</p></div>
+          </details>
+          <details>
+            <summary>What's the week strip on Today?</summary>
+            <div class="answer"><p>Seven small rings, from six days ago to today, each filled toward that day's goal. A check means the goal was met. The header counts finished days only, so today never counts against you before it's over.</p></div>
+          </details>
+          <details>
+            <summary>How do I change my plan or daily goal?</summary>
+            <div class="answer"><p>Tap the gear on <strong>Today</strong> to open Settings, then <span class="path">Treatment</span>. You can change your tray count, current tray, schedule and daily goal at any time.</p></div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 02 Trays -->
+      <section class="topic reveal" id="trays" aria-labelledby="trays-title">
+        <div class="topic-head"><span class="num">02</span><h2 id="trays-title">Trays &amp; calendar</h2></div>
+        <div class="card faq">
+          <details>
+            <summary>How do I log a tray switch?</summary>
+            <div class="answer"><p>Tap your tray on <strong>Today</strong>, then <strong>Switch to Tray N</strong>. On the last tray the button reads <strong>Complete Treatment</strong>. You can also say <span class="phrase">Log a tray switch in TrayTrack</span> to Siri.</p></div>
+          </details>
+          <details>
+            <summary>I switched too early. How do I undo a switch?</summary>
+            <div class="answer"><p>Open your tray from Today and tap <strong>Undo Last Switch</strong>. Completed treatment by mistake? Open your tray history from the <strong>Calendar</strong> tab and tap <strong>Reopen Final Tray</strong>.</p></div>
+          </details>
+          <details>
+            <summary>What do the calendar colours mean?</summary>
+            <div class="answer"><p>Each day is coloured by how close it came to your goal: green when it was met, amber when it was close, red when it fell short. Tap a day to see its sessions, add a note, or add an appointment.</p></div>
+          </details>
+          <details>
+            <summary>Can appointments go into my iPhone Calendar?</summary>
+            <div class="answer"><p>Yes. When you add an appointment, turn on <strong>Add to Calendar</strong>. TrayTrack asks for write-only calendar access, so it can add the event but can't read anything else in your calendar.</p></div>
+          </details>
+          <details>
+            <summary>How do I share a report with my orthodontist?</summary>
+            <div class="answer"><p>In Settings, open <span class="path">Compliance Report</span> to make a wear summary as a PDF or text and share it however you like (Premium). The report is created on your iPhone and only goes where you send it.</p></div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 03 Reminders -->
+      <section class="topic reveal" id="reminders" aria-labelledby="reminders-title">
+        <div class="topic-head"><span class="num">03</span><h2 id="reminders-title">Reminders</h2></div>
+        <div class="card faq">
+          <details>
+            <summary>Which reminders does TrayTrack send?</summary>
+            <div class="answer">
+              <ul>
+                <li><strong>Switch reminder:</strong> on the day your next tray is due, at the time you choose, with up to two gentle follow-ups on the next two days if the switch hasn't been logged.</li>
+                <li><strong>Reinsert reminder:</strong> a set number of minutes after your aligners come out (you choose how many), to put them back in.</li>
+                <li><strong>Evening Check (optional):</strong> if you haven't logged any out-time by your check time, one gentle nudge in case a meal slipped by. At most one a day.</li>
+                <li><strong>"Still out?" follow-ups:</strong> if you take your aligners out and never tap Back in, TrayTrack checks in after 24 hours, 48 hours and a week. They stop as soon as you log Back in, delete that session, or finish treatment.</li>
+              </ul>
+              <p>Change them in <span class="path">Settings → Reminders</span>.</p>
+            </div>
+          </details>
+          <details>
+            <summary>What are the reminder styles?</summary>
+            <div class="answer"><p>You can choose a gentle banner, a time-sensitive notification (it can show during a Focus), or an alarm that rings even when your iPhone is on Silent. The alarm style uses Apple's AlarmKit and asks for permission the first time.</p></div>
+          </details>
+          <details>
+            <summary>My reminders aren't showing up.</summary>
+            <div class="answer">
+              <p>Check that notifications are allowed in <span class="path">iOS Settings → Notifications → TrayTrack</span>. If you picked the alarm style, also allow alarms for TrayTrack. TrayTrack shows a note in <span class="path">Settings → Reminders</span> when either is turned off.</p>
+              <p>Reminders are scheduled on your iPhone, so they work offline and nothing is sent to a server.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 04 Widgets -->
+      <section class="topic reveal" id="widgets" aria-labelledby="widgets-title">
+        <div class="topic-head"><span class="num">04</span><h2 id="widgets-title">Widgets, Live Activity &amp; Siri</h2></div>
+        <div class="card faq">
+          <details>
+            <summary>How do I add a TrayTrack widget?</summary>
+            <div class="answer">
+              <ol>
+                <li><strong>Home Screen:</strong> touch and hold an empty spot, tap <strong>Edit</strong>, then <strong>Add Widget</strong>, and search for TrayTrack.</li>
+                <li><strong>Lock Screen:</strong> touch and hold the Lock Screen, tap <strong>Customize</strong>, choose the Lock Screen, then tap the widget area.</li>
+              </ol>
+              <p><span class="path">Settings → Widgets</span> in TrayTrack shows every widget with your own numbers.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Which widgets are there?</summary>
+            <div class="answer">
+              <ul>
+                <li><strong>Today:</strong> the whole ring is a button. Tap it to take your aligners out or put them back in.</li>
+                <li><strong>Trays:</strong> your current tray and when the next switch is due.</li>
+                <li><strong>Next Switch:</strong> a countdown to your next tray. On the last tray it counts to the finish.</li>
+                <li><strong>Finish Line:</strong> days to your projected end of treatment, with overall progress.</li>
+                <li><strong>Lock Screen:</strong> worn today, next switch, and the Next Switch and Finish Line countdowns.</li>
+              </ul>
+              <p>There's also a <strong>Control Center</strong> toggle for logging in and out.</p>
+            </div>
+          </details>
+          <details>
+            <summary>What is the Live Activity, and what does Back in do?</summary>
+            <div class="answer">
+              <p>While your aligners are out, a Live Activity on the Lock Screen shows the out-timer. Tap <strong>Back in</strong> on it to log them back in without opening the app; the card then goes away.</p>
+              <p>In the dimmed Always-On view it shows clock times instead of a ticking timer, for example "Since 3:32 PM".</p>
+            </div>
+          </details>
+          <details>
+            <summary>What can I ask Siri?</summary>
+            <div class="answer">
+              <p>These work straight away, with nothing to set up. Say the app's name as shown:</p>
+              <ul>
+                <li><span class="phrase">Aligners out in TrayTrack</span> or <span class="phrase">Take my aligners out with TrayTrack</span></li>
+                <li><span class="phrase">Aligners in with TrayTrack</span> or <span class="phrase">Put my aligners back in with TrayTrack</span></li>
+                <li><span class="phrase">Log a tray switch in TrayTrack</span></li>
+                <li><span class="phrase">Add an appointment to TrayTrack</span> and <span class="phrase">Add a note to TrayTrack</span></li>
+                <li><span class="phrase">Check my wear time in TrayTrack</span></li>
+                <li><span class="phrase">How much time do I have left out in TrayTrack</span></li>
+                <li><span class="phrase">Which tray am I on in TrayTrack</span></li>
+                <li><span class="phrase">When is my next tray switch in TrayTrack</span></li>
+                <li><span class="phrase">When will my treatment finish in TrayTrack</span></li>
+              </ul>
+              <p>The full list is in <span class="path">Settings → Siri</span>. The same actions are available in the Shortcuts app.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 05 Photos -->
+      <section class="topic reveal" id="photos" aria-labelledby="photos-title">
+        <div class="topic-head"><span class="num">05</span><h2 id="photos-title">Photos</h2></div>
+        <div class="card faq">
+          <details>
+            <summary>How do I take a progress photo?</summary>
+            <div class="answer"><p>On the <strong>Photos</strong> tab, tap <strong>+</strong> and take a photo. A guide on screen shows where your teeth go ("Align your teeth here"), and TrayTrack keeps just that area, so every photo lines up with the last. Photos are filed by tray.</p></div>
+          </details>
+          <details>
+            <summary>Can I import a photo and crop it?</summary>
+            <div class="answer"><p>Yes. Choose <strong>Choose from Library</strong>, then tap <strong>Crop</strong> on the photo. Pinch and drag to fit your smile inside the same teeth guide the camera uses, and tap <strong>Use Crop</strong>. <strong>Crop Again</strong> and <strong>Undo</strong> always start from the original photo.</p></div>
+          </details>
+          <details>
+            <summary>How do I compare two photos?</summary>
+            <div class="answer"><p>With two or more photos, open <strong>Before &amp; after</strong> to compare any two side by side and share the result (Premium).</p></div>
+          </details>
+          <details>
+            <summary>Where are my photos stored?</summary>
+            <div class="answer"><p>On your iPhone, inside TrayTrack. If you turn on iCloud Sync (Premium), they're also stored in your own private iCloud and count toward your iCloud storage. They are never sent to the developer.</p></div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 06 Premium -->
+      <section class="topic reveal" id="premium" aria-labelledby="premium-title">
+        <div class="topic-head"><span class="num">06</span><h2 id="premium-title">Premium &amp; iCloud Sync</h2></div>
+        <div class="card faq">
+          <details>
+            <summary>What's free, and what does Premium add?</summary>
+            <div class="answer">
+              <p>Wear tracking, reminders, trays, the calendar with notes and appointments, your full history, photo capture, widgets, the Live Activity and Siri are free.</p>
+              <p>Premium is a <strong>one-time purchase, not a subscription</strong>, with a 7-day free trial. It adds iCloud Sync, the compliance report, before &amp; after compare, color themes (Ocean, Violet, Sunset) and alternate app icons.</p>
+            </div>
+          </details>
+          <details>
+            <summary>How do I restore my purchase on a new iPhone?</summary>
+            <div class="answer"><p>Sign in with the same Apple Account, open <span class="path">Settings</span> in TrayTrack and tap <strong>Restore Purchases</strong>.</p></div>
+          </details>
+          <details>
+            <summary>How do I get a refund?</summary>
+            <div class="answer"><p>Refunds are handled by Apple. After buying, TrayTrack shows <strong>Request a Refund</strong> in Settings, which opens Apple's refund form. You can also request one at <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>. If Premium ends, themes go back to Teal, the icon resets, sync pauses, and nothing is deleted.</p></div>
+          </details>
+          <details>
+            <summary>How does iCloud Sync work?</summary>
+            <div class="answer">
+              <p>Turn on <strong>iCloud Sync</strong> in Settings (Premium), then restart TrayTrack to apply the change. Your treatment, wear history, notes, appointments and photos are stored in your own private iCloud database, so they appear on your other devices signed in to the same Apple Account. The developer can't see them.</p>
+              <p>If sync can't run (for example, you're not signed in to iCloud), Settings says why, and your data stays safe on your iPhone.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 07 After treatment -->
+      <section class="topic reveal" id="after" aria-labelledby="after-title">
+        <div class="topic-head"><span class="num">07</span><h2 id="after-title">After treatment</h2></div>
+        <div class="card faq">
+          <details>
+            <summary>What happens after my last tray?</summary>
+            <div class="answer"><p>When you complete treatment, Today shows <strong>What's Next?</strong> with four choices: refinements, retainers, a new treatment, or all done. Your history and photos stay either way.</p></div>
+          </details>
+          <details>
+            <summary>How do refinements work?</summary>
+            <div class="answer"><p>Choose <strong>I'm getting refinements</strong> and enter the new tray count and days per tray. The trays carry on from your last one (Tray 21, 22 and so on) in the same treatment, so your history, photos and report stay together. Set it up by mistake? <strong>Undo Last Switch</strong> on the first refinement tray takes the round back.</p></div>
+          </details>
+          <details>
+            <summary>Can TrayTrack track my retainer?</summary>
+            <div class="answer"><p>Yes. Choose <strong>I'm moving to retainers</strong> and pick full-time (22 hours) or nightly (10 hours); you can fine-tune the goal later from the retainer row on Today. The dial, sessions, reminders, widgets and Live Activity all work as before, without tray switches.</p></div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 08 Data -->
+      <section class="topic reveal" id="data" aria-labelledby="data-title">
+        <div class="topic-head"><span class="num">08</span><h2 id="data-title">Your data</h2></div>
+        <div class="card faq">
+          <details>
+            <summary>Where is my data, and who can see it?</summary>
+            <div class="answer"><p>Everything is stored on your iPhone. With iCloud Sync on, it's also in your own private iCloud. TrayTrack has no server, no analytics and no ads, and the developer can't see your data. Details are in the <a href="privacy.html">privacy policy</a>.</p></div>
+          </details>
+          <details>
+            <summary>How do I delete my data?</summary>
+            <div class="answer">
+              <ul>
+                <li><strong>One item:</strong> delete a session from the list on Today, a photo from the photo viewer, or a note or appointment from its editor.</li>
+                <li><strong>Everything on this iPhone:</strong> delete the TrayTrack app. Its data is removed with it.</li>
+                <li><strong>Everything in iCloud</strong> (if you used iCloud Sync): in iOS Settings, tap your name, then <span class="path">iCloud → Manage Account Storage → TrayTrack</span>, and delete its data.</li>
+              </ul>
+            </div>
+          </details>
+          <details>
+            <summary>Does TrayTrack give medical advice?</summary>
+            <div class="answer"><p>No. TrayTrack is a tracking tool. It records what you log and reminds you of the plan you set. Always follow your orthodontist's instructions.</p></div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 09 Accessibility -->
+      <section class="topic reveal" id="accessibility" aria-labelledby="accessibility-title">
+        <div class="topic-head"><span class="num">09</span><h2 id="accessibility-title">Accessibility</h2></div>
+        <div class="card faq">
+          <details>
+            <summary>Does TrayTrack work with VoiceOver and larger text?</summary>
+            <div class="answer">
+              <p>Yes. TrayTrack supports VoiceOver (the dial reads out whether your aligners are in or out and how much out-time is left), Dynamic Type up to the largest sizes, and Reduce Motion. Colours are never the only signal: goal status also uses a check mark or text.</p>
+              <p>If something is hard to use with your setup, please email me; accessibility problems are treated as bugs.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="card contact reveal" id="contact" aria-labelledby="contact-title">
+        <div>
+          <h2 id="contact-title">Still need help?</h2>
+          <p>TrayTrack is made by one person, and I read every message myself, usually within a day or two. Include your iPhone model, iOS version and what you were doing; screenshots help a lot.</p>
+        </div>
+        <a class="button" href="mailto:mahaamimran@gmail.com?subject=TrayTrack%20support">mahaamimran@gmail.com</a>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>© 2026 TrayTrack. Made by one person, with care.</span>
+    <nav aria-label="Footer">
+      <a href="index.html">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="mailto:mahaamimran@gmail.com">Contact</a>
+    </nav>
+  </div>
+</footer>
 </body>
 </html>

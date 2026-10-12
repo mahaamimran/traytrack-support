@@ -1,0 +1,839 @@
+/*
+ * TrayTrack support site. Shared by index.html (Support) and privacy.html (Privacy Policy).
+ * Colours are the app's Teal theme (TrayTrackKit AppTheme.swift): light first, and the app's
+ * neutral dark (black page, grey cards, teal accent) when the device is in dark mode.
+ * No web fonts are loaded, so the pages make no third-party requests: Apple devices get
+ * SF Pro Rounded and SF Pro, the same faces as the app; other systems use their own.
+ */
+
+:root {
+  --page: #eef4f2;
+  --card: #ffffff;
+  --surface-muted: #e1ece9;
+  --surface-2: #dceae6;
+  --brand: #0a7b69;
+  --brand-deep: #0b5f52;
+  --on-brand: #ffffff;
+  --on-deep: #ffffff;
+  --on-deep-2: rgb(255 255 255 / 0.78);
+  --panel-accent: #ffffff;
+  --brand-tint: rgb(10 123 105 / 0.14);
+  --ink: #0d1412;
+  --title: #0b5f52;
+  --muted: #5c6865;
+  --hairline: rgb(11 95 82 / 0.14);
+  --shadow-card: 0 1px 2px rgb(11 95 82 / 0.06), 0 10px 28px -14px rgb(11 95 82 / 0.22);
+  --radius-card: 22px;
+  --radius-hero: 28px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-settle: cubic-bezier(0.34, 1.36, 0.64, 1);
+  --font-display: ui-rounded, "SF Pro Rounded", "Nunito", "Varela Round", system-ui, sans-serif;
+  --font-text: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #000000;
+    --card: #1c1c1e;
+    --surface-muted: #272729;
+    --surface-2: #252528;
+    --brand: #3dd9c0;
+    --brand-deep: #1c1c1e;
+    --on-brand: #06231d;
+    --on-deep: #f2f2f2;
+    --on-deep-2: rgb(242 242 242 / 0.78);
+    --panel-accent: #3dd9c0;
+    --brand-tint: rgb(255 255 255 / 0.12);
+    --ink: #eeeeee;
+    --title: #eeeeee;
+    --muted: #b0b0b2;
+    --hairline: rgb(255 255 255 / 0.1);
+    --shadow-card: 0 0 0 1px rgb(255 255 255 / 0.06);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  color: var(--title);
+  text-wrap: balance;
+  margin: 0;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--brand);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--brand) 40%, transparent);
+}
+
+a:hover {
+  text-decoration-color: var(--brand);
+}
+
+:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+.wrap {
+  width: 100%;
+  max-width: 68rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .wrap {
+    padding-inline: 1.5rem;
+  }
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+}
+
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+/* ---------- Top bar ---------- */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: color-mix(in srgb, var(--page) 82%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.bar .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  text-decoration: none;
+  color: var(--title);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+.brand svg {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.bar nav {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.bar nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.9rem;
+  border-radius: 999px;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background-color 160ms ease-out, color 160ms ease-out;
+}
+
+.bar nav a:hover {
+  background: var(--brand-tint);
+  color: var(--ink);
+}
+
+.bar nav a[aria-current="page"] {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+/* ---------- Hero panel (drawn like the app icon) ---------- */
+
+.hero {
+  position: relative;
+  margin-top: 1rem;
+  padding: 2.5rem 1.5rem 2.25rem;
+  border-radius: var(--radius-hero);
+  background: var(--brand-deep);
+  color: var(--on-deep);
+  overflow: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hero {
+    background: linear-gradient(170deg, #2a2c2e, #0f1011 75%);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.07);
+  }
+}
+
+@media (min-width: 720px) {
+  .hero {
+    margin-top: 1.5rem;
+    padding: 3.5rem 3.5rem 3.25rem;
+    border-radius: 36px;
+  }
+}
+
+.hero h1 {
+  color: inherit;
+  margin-top: 1.5rem;
+  font-size: clamp(2.4rem, 1.5rem + 4vw, 4.25rem);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+}
+
+.hero h1 span {
+  display: block;
+  color: var(--on-deep-2);
+}
+
+.hero .lede {
+  max-width: 36rem;
+  margin: 1.25rem 0 0;
+  color: var(--on-deep-2);
+  font-size: 1.1rem;
+}
+
+.hero .kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0;
+  color: var(--on-deep-2);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.mark {
+  display: block;
+  width: 60px;
+  height: auto;
+  color: var(--panel-accent);
+  flex: none;
+}
+
+.hero-texture {
+  position: absolute;
+  right: -12%;
+  bottom: -30%;
+  width: 70%;
+  max-width: 640px;
+  color: var(--on-deep);
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips li {
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.1);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.hero .chips a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  color: var(--on-deep);
+  text-decoration: none;
+}
+
+/* ---------- Layout ---------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  padding-block: 3.5rem 2rem;
+}
+
+@media (min-width: 960px) {
+  .layout {
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: 4rem;
+  }
+}
+
+.toc {
+  align-self: start;
+}
+
+@media (min-width: 960px) {
+  .toc {
+    position: sticky;
+    top: 5.5rem;
+  }
+}
+
+.toc p {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* On phones the topics are one swipeable row, so they don't push the answers down. */
+.toc ol {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0 -1rem;
+  padding: 0.25rem 1rem 0.75rem;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.toc ol::-webkit-scrollbar {
+  display: none;
+}
+
+.toc li {
+  flex: none;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 960px) {
+  .toc ol {
+    flex-direction: column;
+    gap: 0.1rem;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+}
+
+.toc a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 0.85rem;
+  border-radius: 999px;
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+  transition: background-color 160ms ease-out, color 160ms ease-out;
+}
+
+@media (min-width: 960px) {
+  .toc a {
+    min-height: 38px;
+    padding: 0 0.75rem;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 10px;
+    color: var(--muted);
+  }
+}
+
+.toc a:hover {
+  background: var(--brand-tint);
+  color: var(--ink);
+}
+
+/* ---------- Topic groups and FAQ ---------- */
+
+.topic + .topic {
+  margin-top: 3.25rem;
+}
+
+.topic-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.num {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: var(--brand-tint);
+  color: var(--brand);
+}
+
+.topic h2 {
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  font-weight: 900;
+  letter-spacing: -0.015em;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.faq {
+  padding: 0 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .faq {
+    padding: 0 1.75rem;
+  }
+}
+
+.faq details + details {
+  border-top: 1px solid var(--hairline);
+}
+
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4rem;
+  padding: 0.9rem 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq summary::after {
+  content: "";
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(var(--brand), var(--brand)) center / 12px 2.5px no-repeat,
+    linear-gradient(var(--brand), var(--brand)) center / 2.5px 12px no-repeat,
+    var(--brand-tint);
+  transition: transform 320ms var(--ease-out-expo);
+}
+
+.faq details[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq .answer {
+  padding: 0 0 1.25rem;
+  color: var(--muted);
+}
+
+@media (min-width: 640px) {
+  .faq .answer {
+    padding-right: 2.5rem;
+  }
+}
+
+.faq .answer p {
+  margin: 0 0 0.75rem;
+}
+
+.faq .answer p:last-child,
+.faq .answer ul:last-child,
+.faq .answer ol:last-child {
+  margin-bottom: 0;
+}
+
+.faq .answer ul,
+.faq .answer ol {
+  margin: 0 0 0.75rem;
+  padding-left: 1.2rem;
+}
+
+.faq .answer li + li {
+  margin-top: 0.3rem;
+}
+
+.faq strong,
+.prose strong {
+  color: var(--ink);
+}
+
+.path {
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.phrase {
+  display: inline-block;
+  margin: 0.15rem 0;
+  padding: 0.2rem 0.65rem;
+  border-radius: 12px 12px 12px 4px;
+  background: var(--surface-2);
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ---------- Contact ---------- */
+
+.contact {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 3.5rem;
+  padding: 2rem 1.5rem;
+}
+
+@media (min-width: 720px) {
+  .contact {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 2.25rem 2.5rem;
+  }
+}
+
+.contact h2 {
+  font-size: 1.6rem;
+  font-weight: 900;
+}
+
+.contact p {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 50px;
+  padding: 0 1.4rem;
+  border-radius: 14px;
+  background: var(--brand);
+  color: var(--on-brand);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: transform 160ms var(--ease-out-expo), opacity 160ms ease-out;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+/* ---------- Privacy prose ---------- */
+
+.summary {
+  padding: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .summary {
+    padding: 2rem 2.25rem;
+  }
+}
+
+.summary h2 {
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+
+.summary ul {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 720px) {
+  .summary ul {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem 2rem;
+  }
+}
+
+.summary li {
+  position: relative;
+  padding-left: 1.75rem;
+}
+
+.summary li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.3rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 999px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat,
+    var(--brand);
+}
+
+@media (prefers-color-scheme: dark) {
+  .summary li::before {
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%2306231d' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat,
+      var(--brand);
+  }
+}
+
+.prose section {
+  padding-top: 2.75rem;
+}
+
+.prose section:first-child {
+  padding-top: 2.5rem;
+}
+
+.prose h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: clamp(1.4rem, 1.15rem + 1vw, 1.85rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.prose h3 {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.prose p,
+.prose ul {
+  max-width: 44rem;
+  margin: 0.85rem 0 0;
+}
+
+.prose ul {
+  padding-left: 1.2rem;
+}
+
+.prose li + li {
+  margin-top: 0.4rem;
+}
+
+.prose p,
+.prose li {
+  color: color-mix(in srgb, var(--ink) 82%, var(--muted));
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 1.5rem 0 0;
+  font-size: 0.92rem;
+  color: var(--on-deep-2);
+}
+
+/* ---------- Footer ---------- */
+
+.foot {
+  margin-top: 4rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.foot .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding-block: 2rem 3rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.foot nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+/* ---------- Motion ---------- */
+/* Everything is visible without motion. Animations only use transform and opacity. */
+
+@keyframes arch-upper {
+  from {
+    opacity: 0;
+    transform: translateY(-38%);
+  }
+}
+
+@keyframes arch-lower {
+  0% {
+    opacity: 0;
+    transform: translateY(46%) scale(0.92);
+  }
+  60% {
+    opacity: 1;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.9rem);
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mark .upper {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    animation: arch-upper 900ms var(--ease-out-expo) 120ms backwards;
+  }
+
+  .mark .lower {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    animation: arch-lower 1100ms var(--ease-settle) 260ms backwards;
+  }
+
+  .rise {
+    animation: rise 800ms var(--ease-out-expo) backwards;
+    animation-delay: calc(300ms + var(--i, 0) * 90ms);
+  }
+
+  .faq details[open] .answer {
+    animation: rise 420ms var(--ease-out-expo);
+  }
+
+  /* Sections ease in as they scroll into view, where the browser supports scroll-driven animations. */
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 520px) {
+  .bar nav a {
+    padding: 0 0.7rem;
+  }
+
+  .brand span {
+    font-size: 1.05rem;
+  }
+}
+
+@media print {
+  .bar,
+  .toc,
+  .hero-texture {
+    display: none;
+  }
+
+  .hero {
+    background: none;
+    color: #000;
+  }
+}
+
+/* The summary card sits inside .prose; keep its grid list free of prose list spacing. */
+.prose .summary ul {
+  max-width: none;
+  padding-left: 0;
+}
+
+.prose .summary li + li {
+  margin-top: 0;
+}

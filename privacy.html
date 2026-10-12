@@ -2,303 +2,180 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="TrayTrack's privacy policy — the app is fully on-device and collects nothing.">
-<link rel="icon" href="favicon.png">
-<title>TrayTrack — Privacy Policy</title>
-<style>
-  :root {
-    --paper: #f2ecdd;
-    --paper-deep: #e9e0c9;
-    --ink: #221f2b;
-    --ink-soft: #57506b;
-    --rule: rgba(34, 31, 43, 0.18);
-    --accent: #0f9e86;
-    --accent-2: #14c2a5;
-    --stamp: #b23a3a;
-    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
-    --mono: ui-monospace, "SF Mono", "Menlo", "Cascadia Mono", monospace;
-  }
-  * { box-sizing: border-box; }
-  html { background: var(--paper); }
-  body {
-    margin: 0;
-    font-family: var(--serif);
-    color: var(--ink);
-    background:
-      radial-gradient(circle at 1px 1px, rgba(34,31,43,0.06) 1px, transparent 0) 0 0/22px 22px,
-      linear-gradient(var(--paper), var(--paper));
-    font-size: clamp(1rem, 0.94rem + 0.3vw, 1.08rem);
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: var(--accent); }
-  a:hover { color: var(--accent-2); }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
-
-  .masthead {
-    position: relative;
-    padding: 64px 0 40px;
-    border-bottom: 3px double var(--ink);
-  }
-  .masthead-row {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px;
-  }
-  .wordmark { display: flex; align-items: center; gap: 14px; }
-  .app-icon {
-    flex: none;
-    border-radius: 22.37%;
-    box-shadow: 0 3px 10px rgba(34, 31, 43, 0.28);
-  }
-  .wordmark h1 {
-    margin: 0;
-    font-size: clamp(1.8rem, 1.5rem + 1.6vw, 2.6rem);
-    font-weight: 600;
-    letter-spacing: 0.01em;
-  }
-  .kicker {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin: 0 0 6px;
-  }
-  .tagline { font-style: italic; color: var(--ink-soft); margin: 10px 0 0; max-width: 46ch; }
-
-  .seal {
-    flex: none;
-    width: 108px;
-    height: 108px;
-    border-radius: 50%;
-    border: 2px solid var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    transform: rotate(-6deg);
-    color: var(--accent);
-    position: relative;
-    opacity: 0.9;
-    mix-blend-mode: multiply;
-  }
-  .seal::before {
-    content: "";
-    position: absolute;
-    inset: 6px;
-    border: 1px solid var(--accent);
-    border-radius: 50%;
-  }
-  .seal span {
-    font-family: var(--mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.07em;
-    line-height: 1.35;
-    text-transform: uppercase;
-  }
-
-  .lede { padding: 48px 0 8px; }
-  .lede p {
-    font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.45rem);
-    line-height: 1.5;
-    margin: 0;
-    max-width: 42ch;
-  }
-  .lede .accent { color: var(--accent); }
-  .updated {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin: 14px 0 0;
-  }
-
-  .dossier { padding: 40px 0 8px; }
-  .dossier-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--ink);
-    padding-bottom: 10px;
-    margin-bottom: 8px;
-  }
-  .dossier-head h2 {
-    margin: 0;
-    font-size: 1rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    font-family: var(--mono);
-    font-weight: 500;
-  }
-  .dossier-head span { font-family: var(--mono); font-size: 0.75rem; color: var(--ink-soft); }
-
-  .entry {
-    display: grid;
-    grid-template-columns: 44px 1fr;
-    gap: 18px;
-    padding: 26px 0;
-    border-bottom: 1px dashed var(--rule);
-    opacity: 0;
-    transform: translateY(10px);
-    animation: rise 0.6s ease forwards;
-  }
-  .entry:last-child { border-bottom: none; }
-  .entry .no { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); padding-top: 3px; }
-  .entry h3 { margin: 0 0 6px; font-size: 1.12rem; font-weight: 600; }
-  .entry p { margin: 0 0 10px; color: var(--ink-soft); max-width: 60ch; }
-  .entry ul { margin: 0 0 10px; padding-left: 20px; color: var(--ink-soft); }
-  .entry li { margin-bottom: 4px; }
-
-  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
-
-  .contact {
-    margin: 56px 0 0;
-    padding: 36px 28px;
-    border: 1px solid var(--ink);
-    position: relative;
-    background: var(--paper-deep);
-  }
-  .contact::before, .contact::after {
-    content: "";
-    position: absolute;
-    top: -1px; bottom: -1px;
-    width: 14px;
-    background: radial-gradient(circle at 0 6px, transparent 6px, var(--paper) 6.5px) 0 0/100% 12px repeat-y;
-  }
-  .contact::before { left: -7px; }
-  .contact::after { right: -7px; transform: scaleX(-1); }
-  .contact h2 {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    margin: 0 0 10px;
-    color: var(--ink-soft);
-  }
-  .contact p { margin: 0 0 20px; font-size: 1.1rem; }
-  .ticket {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 13px 26px;
-    background: var(--ink);
-    color: var(--paper) !important;
-    text-decoration: none;
-    font-family: var(--mono);
-    font-size: 0.85rem;
-    letter-spacing: 0.04em;
-    border-radius: 3px;
-    transition: transform 0.15s ease, background 0.15s ease;
-  }
-  .ticket:hover { background: var(--accent); transform: translateY(-1px); }
-  .ticket::before { content: "✉"; font-size: 0.95rem; }
-
-  footer {
-    margin-top: 64px;
-    padding: 28px 0 60px;
-    border-top: 1px solid var(--rule);
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.04em;
-    color: var(--ink-soft);
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  footer a { color: var(--ink-soft); }
-
-  @media (max-width: 560px) {
-    .masthead-row { flex-direction: column; align-items: flex-start; }
-    .seal { align-self: flex-end; margin-top: -12px; }
-    .entry { grid-template-columns: 30px 1fr; gap: 12px; }
-  }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TrayTrack Privacy Policy</title>
+<meta name="description" content="TrayTrack's privacy policy, in plain English: no account, no server, no analytics. Your data stays on your iPhone, or in your own private iCloud if you turn on iCloud Sync.">
+<meta name="theme-color" content="#EEF4F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
   <div class="wrap">
-
-    <header class="masthead">
-      <div class="masthead-row">
-        <div class="wordmark">
-          <img class="app-icon" src="icon.png" width="46" height="46" alt="TrayTrack app icon">
-          <div>
-            <p class="kicker">TrayTrack · Privacy Policy</p>
-            <h1>Nothing to collect.</h1>
-          </div>
-        </div>
-        <div class="seal" role="img" aria-label="Zero data collected badge">
-          <span>Zero<br>Data<br>Collected</span>
-        </div>
-      </div>
-      <p class="tagline">The short version: TrayTrack doesn't have a server, so there's nothing for this policy to protect you from.</p>
-    </header>
-
-    <section class="lede">
-      <p>TrayTrack was built to run <span class="accent">entirely on your device</span>. This page explains exactly what that means, in plain language.</p>
-      <p class="updated">Last updated · September 2026</p>
-    </section>
-
-    <section class="dossier">
-      <div class="dossier-head">
-        <h2>The Policy</h2>
-        <span>4 sections</span>
-      </div>
-
-      <article class="entry" style="animation-delay: 0.05s">
-        <div class="no">§01</div>
-        <div>
-          <h3>What TrayTrack stores</h3>
-          <p>Your treatment plan (brand, tray count, schedule), wear-time history, day notes, appointments, and any smile-progress photos you take are saved using Apple's on-device storage (SwiftData), inside your device's protected storage. That's it. There is no company server, no database, and no cloud account behind TrayTrack.</p>
-        </div>
-      </article>
-
-      <article class="entry" style="animation-delay: 0.1s">
-        <div class="no">§02</div>
-        <div>
-          <h3>What TrayTrack does <em>not</em> do</h3>
-          <ul>
-            <li>No account or sign-in of any kind</li>
-            <li>No analytics, tracking, or advertising identifiers</li>
-            <li>No data ever sent over the network to us or anyone else</li>
-            <li>No third-party SDKs with access to your information</li>
-          </ul>
-          <p>Everything you track stays on your iPhone, full stop.</p>
-        </div>
-      </article>
-
-      <article class="entry" style="animation-delay: 0.15s">
-        <div class="no">§03</div>
-        <div>
-          <h3>Permissions TrayTrack asks for</h3>
-          <p>Camera access is used only to take a smile-progress photo — no photo is ever uploaded anywhere. Photos access, if granted, is used only to import an existing photo into your progress timeline. Calendar access, if granted, is write-only, used solely to add an appointment reminder you asked for; TrayTrack cannot read your existing calendar.</p>
-        </div>
-      </article>
-
-      <article class="entry" style="animation-delay: 0.2s">
-        <div class="no">§04</div>
-        <div>
-          <h3>Children &amp; changes to this policy</h3>
-          <p>TrayTrack is not directed at children and does not knowingly collect information from anyone, of any age — because it doesn't collect information at all. If this policy ever changes (for example, if an optional iCloud sync feature is introduced in the future), the update will appear on this same page with a new date above.</p>
-        </div>
-      </article>
-    </section>
-
-    <section class="contact">
-      <h2>Questions about this policy</h2>
-      <p>Email me directly — I'm the only person who works on TrayTrack.</p>
-      <a class="ticket" href="mailto:mahaamimran@gmail.com">mahaamimran@gmail.com</a>
-    </section>
-
-    <footer>
-      <span><a href="index.html">&larr; Back to Support</a></span>
-      <span>TrayTrack &mdash; built by one person.</span>
-    </footer>
-
+    <a class="brand" href="index.html" aria-label="TrayTrack Support home">
+      <svg viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" fill="#0B5F52"/><g transform="translate(512 512) scale(0.92) translate(-512 -501)"><path d="M145 307 C145 722 879 722 879 307 A94 94 0 0 0 691 307 C691 472 333 472 333 307 A94 94 0 0 0 145 307 Z" fill="#fff" fill-opacity="0.4"/><path transform="translate(0 171)" d="M145 307 C145 722 879 722 879 307 A94 94 0 0 0 691 307 C691 472 333 472 333 307 A94 94 0 0 0 145 307 Z" fill="#fff"/></g></svg>
+      <span>TrayTrack</span>
+    </a>
+    <nav aria-label="Site">
+      <a href="index.html">Support</a>
+      <a href="privacy.html" aria-current="page">Privacy</a>
+    </nav>
   </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <section class="hero" aria-labelledby="title">
+    <svg class="hero-texture" viewBox="145 213 734 576" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4"><path d="M145 307 C145 722 879 722 879 307 A94 94 0 0 0 691 307 C691 472 333 472 333 307 A94 94 0 0 0 145 307 Z"/><path transform="translate(0 171)" d="M145 307 C145 722 879 722 879 307 A94 94 0 0 0 691 307 C691 472 333 472 333 307 A94 94 0 0 0 145 307 Z"/></g></svg>
+    <p class="kicker">
+      <svg class="mark" viewBox="145 213 734 576" role="img" aria-label="TrayTrack"><path class="upper" d="M145 307 C145 722 879 722 879 307 A94 94 0 0 0 691 307 C691 472 333 472 333 307 A94 94 0 0 0 145 307 Z" fill="currentColor" fill-opacity="0.4"/><g transform="translate(0 171)"><path class="lower" d="M145 307 C145 722 879 722 879 307 A94 94 0 0 0 691 307 C691 472 333 472 333 307 A94 94 0 0 0 145 307 Z" fill="currentColor"/></g></svg>
+      <span class="rise">TrayTrack Privacy Policy</span>
+    </p>
+    <h1 id="title" class="rise" style="--i:1">Nothing to collect.<span>Your data stays yours.</span></h1>
+    <p class="lede rise" style="--i:2">TrayTrack has no server and no account. What you log lives on your iPhone, or in your own private iCloud if you choose to sync. This page explains exactly what that means, in plain English.</p>
+    <p class="meta rise" style="--i:3"><span>Effective October 12, 2026</span><span>Applies to the TrayTrack iPhone app, its widgets and Live Activity</span></p>
+  </section>
+
+  <div class="layout">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#short">The short version</a></li>
+        <li><a href="#stores">What TrayTrack stores</a></li>
+        <li><a href="#not">What it doesn't do</a></li>
+        <li><a href="#icloud">iCloud Sync</a></li>
+        <li><a href="#permissions">Camera, photos, calendar</a></li>
+        <li><a href="#reminders">Reminders &amp; alarms</a></li>
+        <li><a href="#siri">Siri, widgets &amp; Live Activity</a></li>
+        <li><a href="#purchases">Purchases</a></li>
+        <li><a href="#sharing">Sharing you choose</a></li>
+        <li><a href="#children">Children</a></li>
+        <li><a href="#delete">Deleting your data</a></li>
+        <li><a href="#changes">Changes &amp; contact</a></li>
+      </ol>
+    </nav>
+
+    <div class="prose">
+      <section id="short" class="card summary reveal" aria-labelledby="short-title">
+        <h2 id="short-title">The short version</h2>
+        <ul>
+          <li>No account or sign-in of any kind.</li>
+          <li>No server: nothing you log is sent to the developer.</li>
+          <li>No analytics, no advertising, no tracking, no third-party SDKs.</li>
+          <li>Your data is on your iPhone, and in your own private iCloud only if you turn on iCloud Sync.</li>
+          <li>Reminders and alarms are scheduled on your iPhone.</li>
+          <li>Purchases and refunds are handled by Apple.</li>
+        </ul>
+      </section>
+
+      <section id="stores" class="reveal" aria-labelledby="stores-title">
+        <h2 id="stores-title"><span class="num">01</span>What TrayTrack stores, and where</h2>
+        <p>To do its job, TrayTrack keeps the things you enter or create:</p>
+        <ul>
+          <li>your treatment plan (aligner brand if you choose one, number of trays, days per tray, start date, daily goal), and later any refinement rounds or retainer phase;</li>
+          <li>your wear sessions (when your aligners or retainer came out and went back in);</li>
+          <li>day notes and orthodontist appointments;</li>
+          <li>progress photos you take or import;</li>
+          <li>your settings, such as reminder times and styles, appearance, theme and app icon.</li>
+        </ul>
+        <p>All of this is saved on your iPhone using Apple's on-device storage, inside storage that only TrayTrack and its own widgets can read. iOS protects it the same way it protects other apps' data.</p>
+      </section>
+
+      <section id="not" class="reveal" aria-labelledby="not-title">
+        <h2 id="not-title"><span class="num">02</span>What TrayTrack doesn't do</h2>
+        <ul>
+          <li>It doesn't have an account, a login or a user ID.</li>
+          <li>It doesn't run or talk to any server of its own. The app contains no networking code that sends your information to the developer or anyone else.</li>
+          <li>It doesn't include analytics, crash-reporting, advertising or tracking SDKs, and doesn't use the advertising identifier.</li>
+          <li>It doesn't sell, rent or share your information, because the developer never receives it.</li>
+        </ul>
+        <p>The developer has no way to see your wear history, notes, appointments or photos.</p>
+      </section>
+
+      <section id="icloud" class="reveal" aria-labelledby="icloud-title">
+        <h2 id="icloud-title"><span class="num">03</span>iCloud Sync (optional, part of Premium)</h2>
+        <p>TrayTrack works fully without iCloud, and iCloud Sync is off until you turn it on in Settings.</p>
+        <p>If you turn it on, your TrayTrack data (your treatment plan, wear history, notes, appointments and progress photos) is stored in your own <strong>private iCloud database</strong> using Apple's CloudKit, so it can appear on your other devices signed in to the same Apple Account.</p>
+        <ul>
+          <li>Your data travels between your devices and your private iCloud storage. It doesn't pass through any server run by the developer, and the developer can't see, read or access it.</li>
+          <li>Synced photos count toward your iCloud storage.</li>
+          <li>Turning sync off stops new changes from being shared. It doesn't delete what's already on your devices or in your iCloud.</li>
+          <li>If your Premium access ends, sync pauses. Nothing is deleted.</li>
+        </ul>
+        <p>Apple's handling of iCloud data is described in <a href="https://www.apple.com/legal/privacy/">Apple's Privacy Policy</a>.</p>
+      </section>
+
+      <section id="permissions" class="reveal" aria-labelledby="permissions-title">
+        <h2 id="permissions-title"><span class="num">04</span>Camera, photos and calendar</h2>
+        <p>TrayTrack only asks for these when you use the feature that needs them, and you can change your answer any time in iOS Settings.</p>
+        <h3>Camera</h3>
+        <p>Used to take smile-progress photos. Photos are saved inside TrayTrack on your iPhone (and in your private iCloud if sync is on). They are never uploaded to the developer.</p>
+        <h3>Photo library</h3>
+        <p>Used only when you choose a photo to import into your progress timeline. TrayTrack reads the photo you pick, nothing else.</p>
+        <h3>Calendar</h3>
+        <p>If you choose <strong>Add to Calendar</strong> for an appointment, TrayTrack asks for write-only access so it can add that event. It can't read your existing calendar.</p>
+      </section>
+
+      <section id="reminders" class="reveal" aria-labelledby="reminders-title">
+        <h2 id="reminders-title"><span class="num">05</span>Reminders and alarms</h2>
+        <p>Switch, reinsert, evening-check and "still out?" reminders are local notifications scheduled on your iPhone. If you choose the alarm style, TrayTrack uses Apple's AlarmKit, also on your iPhone. No push service or server is involved.</p>
+      </section>
+
+      <section id="siri" class="reveal" aria-labelledby="siri-title">
+        <h2 id="siri-title"><span class="num">06</span>Siri, Shortcuts, widgets and Live Activity</h2>
+        <p>When you use Siri or Shortcuts with TrayTrack, Apple processes your request and asks TrayTrack to perform the action (for example, logging your aligners out) or to answer a question from data already on your iPhone. Apple's handling of Siri requests is covered by Apple's own privacy policy; the developer receives nothing.</p>
+        <p>Widgets, the Control Center control and the Live Activity show your own TrayTrack data on your Home Screen and Lock Screen. They read it from your iPhone; nothing is sent anywhere. Keep in mind that Lock Screen items can be seen by anyone holding your phone.</p>
+      </section>
+
+      <section id="purchases" class="reveal" aria-labelledby="purchases-title">
+        <h2 id="purchases-title"><span class="num">07</span>Purchases</h2>
+        <p>TrayTrack is free to download. Premium is an optional one-time purchase made through the App Store. Apple processes the payment, restores and refunds; TrayTrack never sees your payment details. The app checks on your iPhone, using Apple's StoreKit, whether Premium is active.</p>
+      </section>
+
+      <section id="sharing" class="reveal" aria-labelledby="sharing-title">
+        <h2 id="sharing-title"><span class="num">08</span>Sharing you choose</h2>
+        <p>You can share a compliance report or a photo comparison, for example with your orthodontist. These files are created on your iPhone and only go where you send them through the iOS share sheet. Once shared, they are handled by the app or person you sent them to.</p>
+      </section>
+
+      <section id="children" class="reveal" aria-labelledby="children-title">
+        <h2 id="children-title"><span class="num">09</span>Children</h2>
+        <p>TrayTrack doesn't collect personal information from anyone, of any age. If a child uses the app, their data stays on their device (or in their family's iCloud if sync is on), the same as for everyone else.</p>
+      </section>
+
+      <section id="delete" class="reveal" aria-labelledby="delete-title">
+        <h2 id="delete-title"><span class="num">10</span>Deleting your data</h2>
+        <p>Because your data never reaches the developer, you are in control of it:</p>
+        <ul>
+          <li>Delete individual sessions, photos, notes and appointments inside the app.</li>
+          <li>Delete the TrayTrack app to remove all of its data from that iPhone.</li>
+          <li>If you used iCloud Sync, remove TrayTrack's data from iCloud in iOS Settings: tap your name, then iCloud, Manage Account Storage, TrayTrack.</li>
+          <li>Events you added to your iPhone Calendar stay there until you delete them in Calendar.</li>
+        </ul>
+      </section>
+
+      <section id="changes" class="reveal" aria-labelledby="changes-title">
+        <h2 id="changes-title"><span class="num">11</span>Changes and contact</h2>
+        <p>If this policy changes, the new version will be posted on this page with a new effective date. If a change ever affects how your data is handled, it will be explained here before it takes effect.</p>
+        <p>Questions about privacy? Email <a href="mailto:mahaamimran@gmail.com?subject=TrayTrack%20privacy">mahaamimran@gmail.com</a>. I'm the only person who works on TrayTrack, and I read every message.</p>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>© 2026 TrayTrack. Effective October 12, 2026.</span>
+    <nav aria-label="Footer">
+      <a href="index.html">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="mailto:mahaamimran@gmail.com">Contact</a>
+    </nav>
+  </div>
+</footer>
 </body>
 </html>
