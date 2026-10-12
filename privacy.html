@@ -118,7 +118,7 @@
         <h3>Photo library</h3>
         <p>Used only when you choose a photo to import into your progress timeline. TrayTrack reads the photo you pick, nothing else.</p>
         <h3>Calendar</h3>
-        <p>If you choose <strong>Add to Calendar</strong> for an appointment, TrayTrack asks for write-only access so it can add that event. It can't read your existing calendar.</p>
+        <p>If you choose <strong>Add to Calendar</strong> for an appointment, TrayTrack asks for Calendar access so it can add that event, and later update or remove it when you change or delete the appointment. It only works with the events it added itself, and nothing from your calendar ever leaves your iPhone.</p>
       </section>
 
       <section id="reminders" class="reveal" aria-labelledby="reminders-title">
@@ -151,10 +151,11 @@
         <h2 id="delete-title"><span class="num">10</span>Deleting your data</h2>
         <p>Because your data never reaches the developer, you are in control of it:</p>
         <ul>
+          <li>Delete everything at once in the app: <strong>Settings → Delete All My Data</strong>. It removes your treatment, wear history, photos, notes, appointments (including the Calendar events TrayTrack added) and reminders. With iCloud Sync on, the deletion also reaches your other devices. Purchases are kept with your Apple ID.</li>
           <li>Delete individual sessions, photos, notes and appointments inside the app.</li>
           <li>Delete the TrayTrack app to remove all of its data from that iPhone.</li>
           <li>If you used iCloud Sync, remove TrayTrack's data from iCloud in iOS Settings: tap your name, then iCloud, Manage Account Storage, TrayTrack.</li>
-          <li>Events you added to your iPhone Calendar stay there until you delete them in Calendar.</li>
+          <li>Calendar events TrayTrack added are removed when you delete their appointment or use Delete All My Data. If you delete the app first, they stay in Calendar until you remove them there.</li>
         </ul>
       </section>
 
